@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="styles.css" />
+        <title>Выбор тестов</title>
+    </head>
+    <body>
+        <header>
+            <h1>Добро пожаловать</h1>
+            <h2>Сайт посвящен прохождению тестов. Выберите тест, который хотите пройти.</h2>
+        </header>
+        <main>
+            <div id="test-list"></div>
+            <button id="add-test-button">+</button>
+        </main>
+
+        <!-- Модальное окно для создания теста -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeModal">&times;</span>
+                <h2>Название теста</h2>
+                <input type="text" id="testTitle" placeholder="Введите название теста" />
+                <div id="questionsContainer">
+                    <div class="question">
+                        <h3>Вопрос 1</h3>
+                        <input type="text" placeholder="Введите текст вопроса" />
+                        <div class="answer-option">
+                            <input type="radio" name="correctAnswer1" id="answer1_1" onclick="setCorrect(this)" />
+                            <input type="text" placeholder="Вариант 1" />
+                        </div>
+                        <div class="answer-option">
+                            <input type="radio" name="correctAnswer1" id="answer1_2" onclick="setCorrect(this)" />
+                            <input type="text" placeholder="Вариант 2" />
+                        </div>
+                        <div class="answer-option">
+                            <input type="radio" name="correctAnswer1" id="answer1_3" onclick="setCorrect(this)" />
+                            <input type="text" placeholder="Вариант 3" />
+                        </div>
+                        <div class="answer-option">
+                            <input type="radio" name="correctAnswer1" id="answer1_4" onclick="setCorrect(this)" />
+                            <input type="text" placeholder="Вариант 4" />
+                        </div>
+                        <div id="navigation">
+                            <button class="button" onclick="addQuestion()">+</button>
+                            <button class="button" onclick="removeQuestion()">-</button>
+                        </div>
+                    </div>
+                </div>
+                <button id="saveTestButton" class="button">Сохранить тест</button>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>

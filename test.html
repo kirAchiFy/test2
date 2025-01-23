@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="styles.css" />
+        <title>Тест</title>
+    </head>
+    <body>
+        <header>
+            <h1 test-id="test-title">Тест</h1>
+        </header>
+        <main>
+            <div class="container">
+                <div id="sidebar">
+                    <div id="question-list">
+                        <div class="question-item">Вопрос 1</div>
+                        <div class="question-item">Вопрос 2</div>
+                        <div class="question-item">Вопрос 3</div>
+                        <div class="question-item">Вопрос 4</div>
+                        <!-- Добавьте больше вопросов по мере необходимости -->
+                    </div>
+                    <!-- Контейнер для списка вопросов -->
+                </div>
+                <div class="question-area">
+                    <div id="question-container"></div>
+                    <!-- Контейнер для вопроса -->
+                    <div id="options-container"></div>
+                    <!-- Контейнер для вариантов ответов -->
+                </div>
+            </div>
+            <div id="navigation">
+                <button id="prev-button">Предыдущий вопрос</button>
+                <button id="finish-button">Завершить тест</button>
+                <!-- Кнопка завершения теста -->
+                <button id="next-button">Следующий вопрос</button>
+            </div>
+        </main>
+        <script src="test.js"></script>
+    </body>
+</html>
