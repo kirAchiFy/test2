@@ -24,23 +24,45 @@ h2 {
     font-size: 1.2em;
 }
 
-#test-list {
+/* Контейнер для теста */
+.container {
+    display: flex; /* Устанавливаем flex-контейнер для размещения вопросов и основной области */
+    height: calc(100vh - 100px); /* Задаем высоту, чтобы занять весь экран минус заголовок и отступы */
+}
+
+/* Список вопросов */
+#question-list {
     background: rgba(255, 255, 255, 0.1);
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    height: auto; /* Убедитесь, что высота подстраивается под контент */
+    overflow-y: auto; /* Добавляем прокрутку при переполнении */
+    display: flex; /* Устанавливаем flex для вертикального расположения */
+    flex-direction: column; /* Вертикальное расположение элементов */
 }
 
 .test-item-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    margin: 10px 0;
+    padding: 15px; /* Увеличиваем внутренние отступы для более выразительного дизайна */
+    margin: 5px 0; /* Небольшие отступы между вопросами */
     background: rgba(255, 255, 255, 0.1);
     border-radius: 5px;
+    text-align: center; /* Центрируем текст внутри вопроса */
+    cursor: pointer; /* Устанавливаем курсор как указатель для кликабельных вопросов */
+    transition: background-color 0.3s; /* Добавляем переход для фона */
+    width: 100%; /* Занимает 100% ширины контейнера */
 }
 
+.test-item-container:hover {
+    background: rgba(255, 255, 255, 0.2); /* Подсветка при наведении */
+}
+.question-area {
+    flex-grow: 1; /* Заставляем основную область занимать оставшееся пространство */
+    padding: 20px; /* Отступы внутри основной области */
+    background: rgba(255, 255, 255, 0.1); /* Добавление фона для основной области */
+    border-radius: 8px; /* Скругляем углы основной области */
+}
+
+/* Кнопки */
 button {
     padding: 10px 15px;
     font-size: 16px;
@@ -105,15 +127,12 @@ input[type="text"] {
 
 /* Стили для кнопок навигации в тесте */
 .nav-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px; /* Ширина кнопок */
-    height: 48px; /* Высота кнопок */
-    background-color: #007BFF;
-    color: white;
+    padding: 10px 15px; /* Отступы для кнопок навигации */
+    font-size: 16px;
     border: none;
     border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
 }
@@ -126,8 +145,9 @@ input[type="text"] {
 /* Обертка для навигационных кнопок */
 #navigation {
     display: flex;
-    justify-content: center; /* Центрирование кнопок */
+    justify-content: space-between; /* Разделяет кнопки по краям */
     align-items: center; /* Выравнивание по высоте */
+    flex-wrap: wrap; /* Позволяет кнопкам переноситься на следующую строку при недостатке места */
     margin-top: 20px;
 }
 
@@ -152,6 +172,10 @@ input[type="text"] {
 
 /* Responsive styles */
 @media (max-width: 600px) {
+    .container {
+        flex-direction: column; /* Устанавливаем вертикальное расположение для мобильных устройств */
+    }
+
     body {
         padding: 10px;
     }
@@ -172,15 +196,8 @@ input[type="text"] {
 
     /* Удаляем фиксированные размеры кнопок навигации для мобильных */
     .nav-button {
-        width: 48px; /* Вернуть фиксированную ширину для мобильных, если нужно */
-        margin: 0 5px; /* Отступ между кнопками */
-    }
-
-    /* Выравнивание кнопок навигации */
-    #navigation {
-        flex-direction: row; /* Убедитесь, что кнопки в ряд */
-        justify-content: space-between; /* Равномерное пространство между кнопками */
-        align-items: center; /* Выравнивание по высоте */
+        width: 100%; /* Занимает 100% ширины в мобильной версии */
+        margin: 5px 0; /* Небольшие отступы между кнопками */
     }
 }
 
