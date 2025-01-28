@@ -15,17 +15,11 @@
     <main>
         <div class="container">
             <div id="sidebar" class="hidden">
-                <div id="question-list">
-                    <!-- Вопросы будут динамически добавлены через JavaScript -->
-                </div>
+                <div id="question-list"></div> <!-- Вопросы будут динамически добавлены через JavaScript -->
             </div>
             <div class="question-area">
-                <div id="question-container">
-                    <!-- Текущий вопрос будет отображаться здесь -->
-                </div>
-                <div id="options-container" class="answer-options">
-                    <!-- Варианты ответов будут динамически добавлены через JavaScript -->
-                </div>
+                <div id="question-container"></div> <!-- Текущий вопрос будет отображаться здесь -->
+                <div id="options-container" class="answer-options"></div> <!-- Варианты ответов будут динамически добавлены через JavaScript -->
                 <div id="navigation" class="navigation">
                     <button id="prev-button" class="nav-button">←</button>
                     <button id="finish-button">Завершить тест</button>
@@ -35,24 +29,22 @@
         </div>
     </main>
 
+    <!-- Модальное окно для выбора, показывать ли правильные ответы -->
+    <div id="choice-modal" class="modal" style="display: none">
+        <div class="modal-content">
+            <h2>Хотите ли вы сразу видеть правильные ответы после каждого вопроса?</h2>
+            <button id="yes-answer-button">Да</button>
+            <button id="no-answer-button">Нет</button>
+        </div>
+    </div>
+
     <!-- Модальное окно завершения теста -->
-    <div id="modal" class="modal" style="display: none;">
+    <div id="modal" class="modal" style="display: none">
         <div class="modal-content">
             <h2>Вы уверены, что хотите завершить тест?</h2>
             <div>
                 <button id="yes-button">Да</button>
                 <button id="no-button">Нет</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Модальное окно подтверждения перезапуска теста -->
-    <div id="confirm-modal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <h2>Вы уверены, что хотите начать тест заново?</h2>
-            <div>
-                <button id="confirm-yes-button">Да</button>
-                <button id="confirm-no-button">Нет</button>
             </div>
         </div>
     </div>
