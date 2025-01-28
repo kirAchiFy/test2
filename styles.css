@@ -105,25 +105,50 @@ button:hover {
 }
 
 .modal {
-    display: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: fixed;
-    z-index: 1;
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    overflow: auto; /* Позволяет прокручивать окно, если содержимое превышает размеры */
+    background-color: rgba(0, 0, 0, 0.7); /* Тёмный фон для затемнения */
 }
 
 .modal-content {
     margin: auto;
     padding: 20px;
     border-radius: 10px;
-    background-color: #222;
-    width: 80%;
-    max-width: 500px;
+    background-color: #222; /* Темный фон модального окна */
+    color: #fff; /* Белый цвет текста */
+    width: 80%; /* Ширина 80% от экрана */
+    max-width: 500px; /* Максимальная ширина 500px */
+    max-height: 80vh; /* Максимальная высота 80% от видимой области окна */
+    overflow-y: auto; /* Позволяет вертикальную прокрутку при превышении высоты */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Добавление небольшого тени */
 }
 
+/* Стиль для заголовка модального окна */
+.modal-content h2 {
+    color: #fff; /* Белый цвет для заголовка */
+}
+
+/* Кнопки внутри модального окна */
+.modal-content .button {
+    background-color: #444; /* Цвет кнопок */
+    color: #fff; /* Цвет текста кнопок */
+    border: none; /* Убираем рамку */
+    padding: 10px 15px; /* Отступы внутри кнопок */
+    cursor: pointer; /* Изменение курсора при наведении */
+    border-radius: 5px; /* Закругление углов кнопок */
+}
+
+.modal-content .button:hover {
+    background-color: #555; /* Цвет кнопок при наведении */
+}
 input[type="text"] {
     width: calc(100% - 24px);
     padding: 10px;
@@ -242,11 +267,24 @@ button.faded {
 }
 
 .correct {
-    background-color: green; /* Цвет для правильного ответа */
-    color: white; /* Цвет текста */
+    background-color: green;
+    color: white;
 }
 
 .incorrect {
-    background-color: red; /* Цвет для неправильного ответа */
-    color: white; /* Цвет текста */
+    background-color: red;
+    color: white;
+}
+
+.selected {
+    border: 2px solid blue;
+}
+
+.faded {
+    opacity: 0.5;
+}
+
+.option-button {
+    margin: 5px;
+    padding: 10px;
 }
