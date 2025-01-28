@@ -83,11 +83,6 @@ button {
     transition: background-color 0.3s, transform 0.3s;
 }
 
-button:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-}
-
 #add-test-button {
     background-color: #28a745;
     position: fixed;
