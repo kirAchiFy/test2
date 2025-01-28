@@ -1,44 +1,58 @@
 <!doctype html>
 <html lang="ru">
-    <head>
-        <meta charset="UTF-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <link rel="stylesheet" href="styles.css" />
-        <title>Тест</title>
-    </head>
-    <body>
-        <header>
-            <h1 test-id="test-title">Тест</h1>
-        </header>
-        <main>
-            <div class="container">
-                <div id="sidebar">
-                    <div id="question-list">
-                        <div class="question-item">Вопрос 1</div>
-                        <div class="question-item">Вопрос 2</div>
-                        <div class="question-item">Вопрос 3</div>
-                        <div class="question-item">Вопрос 4</div>
-                        <!-- Добавьте больше вопросов по мере необходимости -->
-                    </div>
-                    <!-- Контейнер для списка вопросов -->
-                </div>
-                <div class="question-area">
-                    <div id="question-container"></div>
-                    <!-- Контейнер для вопроса -->
-                    <div id="options-container"></div>
-                    <!-- Контейнер для вариантов ответов -->
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Тест</title>
+</head>
+<body>
+    <header>
+        <h1 id="test-title">Тест</h1>
+    </header>
+    <main>
+        <div class="container">
+            <div id="sidebar">
+                <div id="question-list">
+                    <!-- Вопросы будут динамически добавлены через JavaScript -->
                 </div>
             </div>
-            <div id="navigation">
-                <button id="prev-button">Предыдущий вопрос</button>
-                <button id="finish-button">Завершить тест</button>
-                <!-- Кнопка завершения теста -->
-                <button id="next-button">Следующий вопрос</button>
+            <div class="question-area">
+                <div id="question-container"></div>
+                <div id="options-container" class="answer-options">
+                    <!-- Варианты ответов будут динамически добавлены через JavaScript -->
+                </div>
             </div>
-        </main>
-        <script src="test.js"></script>
-    </body>
+        </div>
+        <div id="navigation" style="display: flex; justify-content: center; align-items: center;">
+            <button id="prev-button" class="nav-button">←</button>
+            <button id="finish-button">Завершить тест</button>
+            <button id="next-button" class="nav-button">→</button>
+        </div>
+    </main>
+
+    <!-- Модальное окно -->
+    <div id="modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>Вы уверены, что хотите завершить тест?</h2>
+            <div>
+                <button id="yes-button">Да</button>
+                <button id="no-button">Нет</button>
+            </div>
+        </div>
+    </div>
+    <!-- Модальное окно подтверждения -->
+    <div id="confirm-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>Вы уверены, что хотите начать тест заново?</h2>
+            <div>
+                <button id="confirm-yes-button">Да</button>
+                <button id="confirm-no-button">Нет</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="test.js"></script>
+</body>
 </html>
