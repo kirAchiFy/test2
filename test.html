@@ -10,10 +10,11 @@
 <body>
     <header>
         <h1 id="test-title">Тест</h1>
+        <button id="toggle-sidebar" class="hamburger">&equiv;</button>
     </header>
     <main>
         <div class="container">
-            <div id="sidebar">
+            <div id="sidebar" class="hidden">
                 <div id="question-list">
                     <!-- Вопросы будут динамически добавлены через JavaScript -->
                 </div>
@@ -25,12 +26,12 @@
                 <div id="options-container" class="answer-options">
                     <!-- Варианты ответов будут динамически добавлены через JavaScript -->
                 </div>
+                <div id="navigation" class="navigation">
+                    <button id="prev-button" class="nav-button">←</button>
+                    <button id="finish-button">Завершить тест</button>
+                    <button id="next-button" class="nav-button">→</button>
+                </div>
             </div>
-        </div>
-        <div id="navigation" class="navigation">
-            <button id="prev-button" class="nav-button">←</button>
-            <button id="finish-button">Завершить тест</button>
-            <button id="next-button" class="nav-button">→</button>
         </div>
     </main>
 
