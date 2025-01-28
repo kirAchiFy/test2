@@ -1,107 +1,127 @@
-* {  
-    font-family: "Manrope", serif;
-    font-optical-sizing: auto;
-    font-style: normal;
+* {
     box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-    border: none;
-}
-
-a {
-    text-decoration: none;
-    color: black;
 }
 
 body {
-    position: relative; /* Устанавливаем относительное позиционирование для body */
-    height: 100vh; /* Задаем высоту body на 100% высоты окна */
-    margin: 0; /* Убираем отступы по умолчанию */
-    display: flex; /* Используем flexbox для центрирования */
-    flex-direction: column; /* Вертикальное направление */
-    justify-content: flex-start; /* Выравнивание по верхнему краю */
-    align-items: center; /* Центрируем по горизонтали */
-    text-align: center; /* Центрируем текст */
-    padding-top: 32px; /* Добавляем отступ сверху для размещения заголовков */
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #00c6ff, #0072ff);
+    color: #fff;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 h1 {
-    font-size: 2.5em; /* Размер шрифта для заголовка */
+    font-size: 2.5em;
+    margin-bottom: 10px;
 }
 
 h2 {
-    font-size: 1.2em; /* Уменьшаем размер шрифта для подзаголовка */
-    font-weight: normal; /* Убираем жирность текста */
+    font-size: 1.2em;
+}
+
+#test-list {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.test-item-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 10px 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
 }
 
 #add-test-button {
-    background-color: transparent; /* Прозрачный фон */
-    font: inherit; /* Устанавливает шрифт кнопки таким же, как у родительского элемента */
-    cursor: pointer; /* Устанавливает курсор в виде указателя при наведении */
-    border: 1px solid rgba(0, 0, 0, 0.28); /* Рамка кнопки */
-    border-radius: 20px; /* Скругление углов */
-    width: 60px; /* Ширина кнопки */
-    height: 60px; /* Высота кнопки */
-    padding: 0; /* Убираем внутренние отступы */
-    transform: scale(1); /* Начальный размер кнопки */
-    transition: transform 0.3s; /* Плавный переход для размера */
-    position: absolute; /* Устанавливаем абсолютное позиционирование */
-    bottom: 32px; /* Отступ от нижней границы */
-    right: 32px; /* Отступ от правой границы */
+    background-color: #28a745;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    font-size: 24px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 #add-test-button:hover {
-    background-color: aqua;
-    transform: scale(1.2); /* Увеличение размера кнопки при наведении */
+    background-color: #218838;
 }
 
-.option-button {
-    border: 1px solid #ccc; /* Ширина бордера 1 пиксель */
-    border-radius: 6px; /* Скругление углов */
-    padding: 8px; /* Внутренние отступы */
-    margin: 4px; /* Отступы между кнопками */
-    cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s;
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
 }
 
-.option-button.correct {
-    background-color: #47fc72; /* Зеленый фон для правильного ответа */
-    border-color: #47fc72; /* Зеленая рамка для правильного ответа */
+.modal-content {
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #222;
+    width: 80%;
+    max-width: 500px;
 }
 
-.option-button.incorrect {
-    background-color: #f55a68; /* Красный фон для неправильного ответа */
-    border-color: #f55a68; /* Красная рамка для неправильного ответа */
+input[type="text"] {
+    width: calc(100% - 24px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
 }
 
-.option-button.faded {
-    opacity: 0.5; /* Эффект поблекания для остальных кнопок */
-}
+/* Responsive styles */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
 
-#navigation {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 16px; /* Отступ сверху */
-}
+    button {
+        width: 100%;
+        margin: 5px 0;
+    }
 
-#prev-button,
-#next-button {
-    cursor: pointer;
-}
-
-#sidebar {
-    width: 200px; /* Ширина боковой панели */
-    float: left; /* Плавающая панель слева */
-    margin-right: 16px; /* Отступ справа */
-}
-
-.question-link {
-    display: block;
-    padding: 8px; /* Внутренние отступы */
-    margin: 4px 0; /* Отступы между кнопками */
-    border: 1px solid #ccc; /* Ширина бордера 1 пиксель */
-    cursor: pointer;
-    border-radius: 6px; /* Скругление углов */
+    #add-test-button {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        width: 100%;
+        height: 50px;
+        font-size: 28px;
+    }
 }
 .correct {
     background-color: green;
@@ -111,96 +131,4 @@ h2 {
 .incorrect {
     background-color: red;
     color: white;
-}
-
-/* Стили для модального окна */
-.modal {
-    display: none; /* Скрыто по умолчанию */
-    position: fixed; /* Окно фиксировано на экране */
-    z-index: 1; /* На переднем плане */
-    left: 0;
-    top: 0;
-    width: 100%; /* Полная ширина */
-    height: 100%; /* Полная высота */
-    overflow: auto; /* Включает прокрутку, если необходимо */
-    background-color: rgba(0, 0, 0, 0.4); /* Черный фон с прозрачностью */
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: auto; /* Центрирование */
-    padding: 16px; /* Внутренние отступы */
-    border: 1px solid #888; /* Ширина бордера 1 пиксель */
-    width: 80%; /* Ширина окна */
-    max-width: 500px; /* Максимальная ширина окна */
-    position: relative; /* Относительное позиционирование для центрирования */
-    top: 50%; /* Сдвиг вниз на 50% */
-    transform: translateY(-50%); /* Центрирование по вертикали */
-    text-align: center; /* Центрирование текста */
-    border-radius: 16px; /* Скругление углов */
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-button {
-    margin: 8px; /* Отступы между кнопками */
-    border-radius: 6px; /* Скругление углов */
-    border: 1px solid #ccc; /* Ширина бордера 1 пиксель */
-    padding: 8px 16px; /* Внутренние отступы */
-    cursor: pointer; /* Курсор при наведении */
-}
-
-/* Стили для боковой панели */
-#sidebar {
-    width: 200px; /* Ширина боковой панели */
-    float: left; /* Плавающая панель слева */
-    padding: 16px; /* Внутренние отступы */
-    border-right: 1px solid #ccc; /* Разделительная линия */
-}
-
-#question-list {
-    margin-top: 16px; /* Отступ сверху */
-    font-size: 14px; /* Уменьшаем размер шрифта */
-}
-
-#question-list .question-item {
-    padding: 6px; /* Уменьшаем внутренние отступы для элементов списка */
-}
-
-#question-list button {
-    display: block; /* Кнопки на новой строке */
-    margin: 4px 0; /* Отступы между кнопками */
-    padding: 6px; /* Уменьшаем внутренние отступы */
-    width: 100%; /* Ширина кнопок */
-    text-align: left; /* Выравнивание текста */
-    background-color: #f0f0f0; /* Цвет фона по умолчанию */
-    border: 1px solid #ccc; /* Ширина бордера 1 пиксель */
-    border-radius: 6px; /* Скругление углов */
-    cursor: pointer; /* Курсор при наведении */
-}
-
-#question-list button.selected {
-    background-color: #4CAF50; /* Цвет для правильного ответа */
-    color: white; /* Цвет текста */
-}
-
-#question-list button.incorrect {
-    background-color: #f44336; /* Цвет для неправильного ответа */
-    color: white; /* Цвет текста */
-}
-
-#question-list button:hover {
-    background-color: #ddd; /* Цвет при наведении */
 }
