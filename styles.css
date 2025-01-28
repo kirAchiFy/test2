@@ -55,6 +55,7 @@ h2 {
 .test-item-container:hover {
     background: rgba(255, 255, 255, 0.2); /* Подсветка при наведении */
 }
+
 .question-area {
     flex-grow: 1; /* Заставляем основную область занимать оставшееся пространство */
     padding: 20px; /* Отступы внутри основной области */
@@ -147,8 +148,7 @@ input[type="text"] {
     display: flex;
     justify-content: space-between; /* Разделяет кнопки по краям */
     align-items: center; /* Выравнивание по высоте */
-    flex-wrap: wrap; /* Позволяет кнопкам переноситься на следующую строку при недостатке места */
-    margin-top: 20px;
+    margin-top: 20px; /* Отступ сверху */
 }
 
 /* Стили для рамки вариантов ответов */
@@ -156,18 +156,12 @@ input[type="text"] {
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     padding: 10px;
+    margin-bottom: 20px; /* Отступ снизу для навигационных кнопок */
 }
 
 /* Стили для отдельных вариантов ответов */
 .answer-option {
     padding: 5px;
-}
-
-.answer-option input[type="text"] {
-    width: calc(100% - 24px);
-    padding: 5px;
-    margin-top: 5px;
-    border-radius: 5px;
 }
 
 /* Responsive styles */
@@ -196,8 +190,8 @@ input[type="text"] {
 
     /* Удаляем фиксированные размеры кнопок навигации для мобильных */
     .nav-button {
-        width: 100%; /* Занимает 100% ширины в мобильной версии */
-        margin: 5px 0; /* Небольшие отступы между кнопками */
+        width: 48%; /* Занимает 48% ширины в мобильной версии для двух кнопок */
+        margin: 5px 1%; /* Небольшие отступы между кнопками */
     }
 }
 
