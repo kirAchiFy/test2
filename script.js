@@ -19,9 +19,9 @@ async function loadTests() {
             testTitle.textContent = test.title; // Устанавливаем текст элемента
             testTitle.classList.add('test-item'); // Добавляем класс для стилизации заголовка
             testTitle.onclick = () => {
-                // Сохраняем текущий тест в localStorage и переходим на страницу теста
+                // Сохраняем текущий тест в localStorage и открываем модальное окно
                 localStorage.setItem('currentTest', JSON.stringify(test));
-                window.location.href = 'test.html'; // Переход на страницу теста
+                document.getElementById('choice-modal').style.display = 'flex'; // Открываем модальное окно выбора
             };
 
             // Создаем кнопку удаления
@@ -32,7 +32,7 @@ async function loadTests() {
             deleteButton.onclick = () => {
                 // Удаляем тест из локального хранилища
                 const updatedTests = JSON.parse(localStorage.getItem('tests')) || [];
-                updatedTests.splice(index - (tests.length), 1); // Удаляем тест из массива
+                updatedTests.splice(index - tests.length, 1); // Удаляем тест из массива
                 localStorage.setItem('tests', JSON.stringify(updatedTests)); // Сохраняем обновленный массив в локальное хранилище
                 displayTests(); // Обновляем отображение тестов
             };
@@ -173,48 +173,48 @@ async function displayTests() {
     testList.innerHTML = ''; // Очищаем текущий список тестов
 
     // Загружаем тесты из data.json и localStorage
-    const response = await fetch('data.json');
-    const tests = await response.json();
-    const savedTests = JSON.parse(localStorage.getItem('tests')) || [];
-    const allTests = [...tests, ...savedTests]; // Объединяем тесты
-
-    allTests.forEach((test, index) => {
-        const testItem = document.createElement('div'); // Создаем новый элемент div для теста
-        testItem.classList.add('test-item-container'); // Добавляем класс для стилизации контейнера
-
-        const testTitle = document.createElement('h3'); // Создаем новый элемент h3 для заголовка теста
-        testTitle.textContent = test.title; // Устанавливаем текст элемента
-        testTitle.classList.add('test-item'); // Добавляем класс для стилизации заголовка
-        testTitle.onclick = () => {
-            // Сохраняем текущий тест в localStorage и переходим на страницу теста
-            localStorage.setItem('currentTest', JSON.stringify(test));
-            window.location.href = 'test.html'; // Переход на страницу теста
-        };
-
-        // Создаем кнопку удаления
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = '🗑️'; // Иконка мусорного ведра
-        deleteButton.classList.add('delete-button'); // Добавляем класс для стилизации кнопки
-        deleteButton.disabled = index < 3; // Делаем кнопку неактивной для первых трех тестов
-        deleteButton.onclick = () => {
-            // Удаляем тест из локального хранилища
-            const updatedTests = JSON.parse(localStorage.getItem('tests')) || [];
-            updatedTests.splice(index - tests.length, 1); // Удаляем тест из массива
-            localStorage.setItem('tests', JSON.stringify(updatedTests)); // Сохраняем обновленный массив в локальное хранилище
-            displayTests(); // Обновляем отображение тестов
-        };
-
-        // Добавляем заголовок и кнопку удаления в контейнер
-        testItem.appendChild(testTitle);
-        testItem.appendChild(deleteButton);
-        testList.appendChild(testItem); // Добавляем контейнер в список тестов
-    });
+    await loadTests();
 }
 
 
 // Обработчик события для кнопки "Сохранить тест"
 document.getElementById('saveTestButton').onclick = saveTest;
+document.getElementById('closeModal').onclick = closeModal;
+
+// Обработчики для выбора отображения правильных ответов
+document.getElementById('yes-answer-button').onclick = () => {
+    const currentTest = JSON.parse(localStorage.getItem('currentTest'));
+    localStorage.setItem('showCorrectAnswers', 'true');
+    // Здесь можно добавить логику для перехода к тесту
+    window.location.href = 'test.html'; // Переход на страницу теста
+};
+
+document.getElementById('no-answer-button').onclick = () => {
+    const currentTest = JSON.parse(localStorage.getItem('currentTest'));
+    localStorage.setItem('showCorrectAnswers', 'false');
+    // Здесь можно добавить логику для перехода к тесту
+    window.location.href = 'test.html'; // Переход на страницу теста
+};
+function initModalChoices() {
+    const choiceModal = document.getElementById("choice-modal");
+    const yesButton = document.getElementById("yes-answer-button");
+    const noButton = document.getElementById("no-answer-button");
+
+    // Открытие модального окна при загрузке теста
+    choiceModal.style.display = "flex";
+
+    yesButton.onclick = () => {
+        showCorrectAnswersImmediately = true;
+        choiceModal.style.display = "none"; // Закрытие модального окна
+        loadTest(); // Загружаем тест после выбора
+    };
+
+    noButton.onclick = () => {
+        showCorrectAnswersImmediately = false; 
+        choiceModal.style.display = "none"; // Закрытие модального окна
+        loadTest(); // Загружаем тест после выбора
+    };
+}
 
 // Вызываем loadTests при загрузке страницы
 window.onload = loadTests;
-
