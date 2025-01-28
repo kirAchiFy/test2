@@ -1,17 +1,25 @@
 let currentTest;
 let currentQuestionIndex = 0;
-let userAnswers = []; // Массив для хранения ответов пользователя
+let userAnswers = [];
+let showCorrectAnswersImmediately = false;
 
 async function loadTest() {
-    // Получаем текущий тест из localStorage
     const storedTest = localStorage.getItem('currentTest');
-    if (storedTest) {
-        currentTest = JSON.parse(storedTest);
-    } else {
+    if (!storedTest) {
         alert("Тест не найден!");
         return;
     }
+    currentTest = JSON.parse(storedTest);
 
+    renderQuestion();
+
+    // Инициализация модального окна выбора правильных ответов только при первой загрузке
+    if (userAnswers.length === 0) {
+        initModalChoices();
+    }
+}
+
+function renderQuestion() {
     const questionContainer = document.getElementById("question-container");
     const optionsContainer = document.getElementById("options-container");
     const questionList = document.getElementById("question-list");
@@ -20,225 +28,174 @@ async function loadTest() {
     optionsContainer.innerHTML = "";
     questionList.innerHTML = "";
 
-    // Отображаем вопрос
     const question = currentTest.questions[currentQuestionIndex];
     questionContainer.textContent = question.question;
 
-    // Отображаем варианты ответов
     question.options.forEach((option) => {
         const button = document.createElement("button");
         button.textContent = option.text;
         button.classList.add("option-button");
-        button.dataset.id = option.id; // Устанавливаем атрибут id для ответа
-        button.dataset.correct = option.id === question.correct; // Устанавливаем атрибут для проверки правильности
+        button.dataset.id = option.id;
+        button.dataset.correct = option.id === question.correct;
         button.onclick = () => handleAnswer(button, question.correct);
-
-        // Если пользователь уже ответил на этот вопрос, показываем его ответ
         if (userAnswers[currentQuestionIndex] === option.id) {
-            button.classList.add("selected"); // Подсвечиваем выбранный ответ
+            button.classList.add("selected");
         }
-
         optionsContainer.appendChild(button);
     });
 
-    // Отображаем список вопросов
     currentTest.questions.forEach((_, index) => {
         const questionLink = document.createElement("button");
-        questionLink.textContent = `Вопрос ${index + 1}`; // Изменено на "Вопрос X"
+        questionLink.textContent = `Вопрос ${index + 1}`;
         questionLink.onclick = () => {
             currentQuestionIndex = index;
-            loadTest();
+            renderQuestion();
         };
         questionList.appendChild(questionLink);
     });
 
-    // Обновляем навигацию
-    const navigation = document.getElementById("navigation");
-    navigation.style.display = "block"; // Показываем контейнер с кнопками
-
-    document.getElementById("prev-button").onclick = () => {
-        if (currentQuestionIndex > 0) {
-            currentQuestionIndex--;
-            loadTest();
-        }
-    };
-
-    document.getElementById("next-button").onclick = () => {
-        if (currentQuestionIndex < currentTest.questions.length - 1) {
-            currentQuestionIndex++;
-            loadTest();
-        }
-    };
-
-    // Инициализация модального окна
-    initModal();
+    updateNavigation();
 }
 
-function initModal() {
-    const finishButton = document.getElementById("finish-button");
-    const modal = document.getElementById("modal");
-    const yesButton = document.getElementById("yes-button");
-    const noButton = document.getElementById("no-button");
+function updateNavigation() {
+    const navigationContainer = document.getElementById("navigation");
+    navigationContainer.innerHTML = ""; // Очистка предыдущих навигационных кнопок
 
+    const prevButton = document.createElement("button");
+    prevButton.textContent = "←";
+    prevButton.onclick = () => {
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            renderQuestion();
+        }
+    };
+
+    const finishButton = document.createElement("button");
+    finishButton.textContent = "Завершить тест";
     finishButton.onclick = () => {
-        modal.style.display = "flex"; // Показываем модальное окно
+        const modal = document.getElementById("modal");
+        modal.style.display = "flex";
+    };
+
+    const nextButton = document.createElement("button");
+    nextButton.textContent = "→";
+    nextButton.onclick = () => {
+        if (currentQuestionIndex < currentTest.questions.length - 1) {
+            currentQuestionIndex++;
+            renderQuestion();
+        }
+    };
+
+    navigationContainer.appendChild(prevButton);
+    navigationContainer.appendChild(finishButton);
+    navigationContainer.appendChild(nextButton);
+    navigationContainer.style.display = "block"; // showing the navigation
+}
+
+function initModalChoices() {
+    const choiceModal = document.getElementById("choice-modal");
+    const yesButton = document.getElementById("yes-answer-button");
+    const noButton = document.getElementById("no-answer-button");
+
+    choiceModal.style.display = "flex";
+
+    yesButton.onclick = () => {
+        showCorrectAnswersImmediately = true;
+        choiceModal.style.display = "none";
+        renderQuestion(); // Рендер вопроса после выбора
     };
 
     noButton.onclick = () => {
-        modal.style.display = "none"; // Скрываем модальное окно
-    };
-
-    yesButton.onclick = () => {
-        showResults(); // Вызов функции showResults
-        modal.style.display = "none"; // Скрываем модальное окно
+        showCorrectAnswersImmediately = false;
+        choiceModal.style.display = "none";
+        renderQuestion(); // Рендер вопроса после выбора
     };
 }
 
 function handleAnswer(selectedButton, correctAnswerId) {
     const buttons = document.querySelectorAll(".option-button");
-
-    // Убираем выделение у всех кнопок и отключаем их после выбора
+    
     buttons.forEach((button) => {
-        button.disabled = true; 
+        button.disabled = true;
         button.classList.add("faded");
-        
-        // Проверяем правильность и добавляем классы
-        if (button.dataset.correct === "true") {
-            button.classList.add("correct");
-        } else {
-            button.classList.add("incorrect");
-        }
     });
 
-    // Добавляем рамку к выбранной кнопке
     selectedButton.classList.add("selected");
+    selectedButton.classList.add(selectedButton.dataset.correct === "true" ? "correct" : "incorrect");
 
-    // Подсвечиваем выбранный ответ
-    if (selectedButton.dataset.correct === "true") {
-        selectedButton.classList.add("correct"); // Подсвечиваем правильный ответ
-    } else {
-        selectedButton.classList.add("incorrect"); // Подсвечиваем неправильный ответ
+    userAnswers[currentQuestionIndex] = selectedButton.dataset.id;
+
+    if (showCorrectAnswersImmediately) {
+        buttons.forEach(button => {
+            if (button.dataset.correct === "true") {
+                button.classList.add("correct");
+            } else {
+                button.classList.add("incorrect");
+            }
+        });
     }
-
-    // Запоминаем ответ пользователя (сохраняем идентификатор ответа)
-    userAnswers[currentQuestionIndex] = selectedButton.dataset.id; // Сохраняем идентификатор выбранного ответа
-
-    // Обновляем цвета вопросов в списке
-    updateQuestionList();
 }
 
 function showResults() {
-    let correctAnswers = 0;
-    let incorrectAnswers = 0;
-    let unansweredQuestions = 0;
+    let correctAnswersCount = 0;
+    let incorrectAnswersCount = 0;
+    let unansweredCount = 0;
 
     currentTest.questions.forEach((question, index) => {
-        if (userAnswers[index] !== undefined) {
-            if (userAnswers[index] === question.correct) {
-                correctAnswers++;
-            } else {
-                incorrectAnswers++;
-            }
+        if (userAnswers[index] === question.correct) {
+            correctAnswersCount++;
+        } else if (userAnswers[index] !== undefined) {
+            incorrectAnswersCount++;
         } else {
-            unansweredQuestions++;
+            unansweredCount++; // Увеличиваем счетчик на неотвеченные вопросы
         }
     });
 
-    // Отображаем результаты
-    alert(
-        `Результаты теста:\nПравильные ответы: ${correctAnswers}\nНеправильные ответы: ${incorrectAnswers}\nНеотвеченные вопросы: ${unansweredQuestions}`
-    );
+    alert(`Результаты теста:\nПравильные ответы: ${correctAnswersCount}\nНеправильные ответы: ${incorrectAnswersCount}\nНеотвеченные вопросы: ${unansweredCount}`);
+    clearTest();
+}
 
-    // Скрываем варианты ответов и навигационные кнопки
-    document.getElementById("options-container").innerHTML = ""; // Убираем варианты ответов
-    document.getElementById("prev-button").style.display = "none"; // Скрываем кнопку "Назад"
-    document.getElementById("next-button").style.display = "none"; // Скрываем кнопку "Вперед"
-
-    // Создаем кнопку для повторного прохождения теста
+function clearTest() {
+    document.getElementById("options-container").innerHTML = "";
+    document.getElementById("navigation").innerHTML = "";
+    
     const restartButton = document.createElement("button");
     restartButton.textContent = "Пройти тест заново";
-    restartButton.onclick = restartTest; // Привязываем функцию к кнопке
+    restartButton.onclick = restartTest;
 
-    // Очищаем навигацию и добавляем кнопку для повторного прохождения теста
-    document.getElementById("navigation").innerHTML = ""; // Очищаем навигацию
-    document.getElementById("navigation").appendChild(restartButton); // Добавляем кнопку в навигацию
+    document.getElementById("navigation").appendChild(restartButton);
 }
-
 
 function restartTest() {
-    const confirmModal = document.getElementById("confirm-modal");
-    confirmModal.style.display = "flex"; // Показываем модальное окно подтверждения
-}
-
-function confirmRestart() {
-    // Сбрасываем состояние теста
     currentQuestionIndex = 0;
-    userAnswers = []; // Очищаем массив ответов
-    document.getElementById("options-container").innerHTML = ""; // Убираем варианты ответов
-    document.getElementById("navigation").innerHTML = ""; // Очищаем навигацию
-
-    // Создаем кнопки навигации
-    const prevButton = document.createElement("button");
-    prevButton.id = "prev-button";
-    prevButton.innerHTML = "&#9664;"; // Стрелка влево
-    prevButton.onclick = () => {
-        if (currentQuestionIndex > 0) {
-            currentQuestionIndex--;
-            loadTest();
-        }
-    };
-    prevButton.classList.add("nav-button"); // Добавляем класс для стилизации
-
-    const finishButton = document.createElement("button");
-    finishButton.id = "finish-button";
-    finishButton.textContent = "Завершить тест";
-    finishButton.onclick = () => {
-        // Логика завершения теста
-        alert("Тест завершен!");
-    };
-
-    const nextButton = document.createElement("button");
-    nextButton.id = "next-button";
-    nextButton.innerHTML = "&#9654;"; // Стрелка вправо
-    nextButton.onclick = () => {
-        if (currentQuestionIndex < currentTest.questions.length - 1) {
-            currentQuestionIndex++;
-            loadTest();
-        }
-    };
-    nextButton.classList.add("nav-button"); // Добавляем класс для стилизации
-
-    // Добавляем кнопки в навигацию
-    const navigationContainer = document.getElementById("navigation");
-    navigationContainer.appendChild(prevButton);
-    navigationContainer.appendChild(finishButton);
-    navigationContainer.appendChild(nextButton);
-    navigationContainer.style.display = "flex"; // Показываем кнопки навигации
-    navigationContainer.style.justifyContent = "space-between"; // Выравнивание кнопок
-
-    loadTest(); // Загружаем тест заново
-    document.getElementById("confirm-modal").style.display = "none"; // Скрываем модальное окно подтверждения
+    userAnswers = [];
+    renderQuestion();
 }
 
-function closeConfirmModal() {
-    document.getElementById("confirm-modal").style.display = "none"; // Скрываем модальное окно подтверждения
+function initModal() {
+    const modal = document.getElementById("modal");
+    const yesButton = document.getElementById("yes-button");
+    const noButton = document.getElementById("no-button");
+
+    yesButton.onclick = () => {
+        showResults();
+        modal.style.display = "none";
+    };
+
+    noButton.onclick = () => {
+        modal.style.display = "none";
+    };
 }
 
-// Инициализация модального окна подтверждения
-function initConfirmModal() {
-    const confirmModal = document.getElementById("confirm-modal");
-    const yesButton = document.getElementById("confirm-yes-button");
-    const noButton = document.getElementById("confirm-no-button");
-
-    yesButton.onclick = confirmRestart; // Подтверждение перезапуска теста
-    noButton.onclick = closeConfirmModal; // Закрытие модального окна
-}
+// События на кнопки
 document.getElementById("toggle-sidebar").onclick = () => {
     const sidebar = document.getElementById("sidebar");
-    sidebar.classList.toggle("hidden"); // Переключаем класс, чтобы показать/скрыть сайдбар
+    sidebar.classList.toggle("hidden");
 };
+
 // Загружаем тест при загрузке страницы
 window.onload = () => { 
     loadTest();
-    initConfirmModal(); // Инициализируем модальное окно подтверждения
+    initModal();
+    initConfirmModal(); // Включите это, если у вас есть подтверждение для перезапуска теста
 };
