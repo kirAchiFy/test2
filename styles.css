@@ -41,6 +41,17 @@ h2 {
     flex-direction: column; /* Вертикальное расположение элементов */
 }
 
+.hidden {
+    display: none; /* Скрываем элемент */
+}
+
+.hamburger {
+    font-size: 24px; /* Размер иконки */
+    background: none; /* Убираем фон */
+    border: none; /* Убираем границы */
+    cursor: pointer; /* Указатель при наведении */
+}
+
 .test-item-container {
     padding: 15px; /* Увеличиваем внутренние отступы для более выразительного дизайна */
     margin: 5px 0; /* Небольшие отступы между вопросами */
@@ -206,8 +217,15 @@ input[type="text"] {
         flex-direction: column; /* Устанавливаем вертикальное расположение для кнопок навигации */
         align-items: stretch; /* Растягиваем кнопки на всю ширину */
     }
-}
 
+    #sidebar {
+        position: absolute; /* Позиционируем сайдбар */
+        width: 200px; /* Ширина сайдбара */
+        background-color: rgba(255, 255, 255, 0.1); /* Цвет фона */
+        height: 100%; /* Высота 100% */
+        overflow-y: auto; /* Прокрутка по вертикали */
+    }
+}
 
 .correct {
     background-color: green;
