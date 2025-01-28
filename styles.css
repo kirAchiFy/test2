@@ -103,6 +103,53 @@ input[type="text"] {
     color: #333;
 }
 
+/* Стили для кнопок навигации в тесте */
+.nav-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px; /* Ширина кнопок */
+    height: 48px; /* Высота кнопок */
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.nav-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Обертка для навигационных кнопок */
+#navigation {
+    display: flex;
+    justify-content: center; /* Центрирование кнопок */
+    align-items: center; /* Выравнивание по высоте */
+    margin-top: 20px;
+}
+
+/* Стили для рамки вариантов ответов */
+.answer-options {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 10px;
+}
+
+/* Стили для отдельных вариантов ответов */
+.answer-option {
+    padding: 5px;
+}
+
+.answer-option input[type="text"] {
+    width: calc(100% - 24px);
+    padding: 5px;
+    margin-top: 5px;
+    border-radius: 5px;
+}
+
 /* Responsive styles */
 @media (max-width: 600px) {
     body {
@@ -122,7 +169,21 @@ input[type="text"] {
         height: 50px;
         font-size: 28px;
     }
+
+    /* Удаляем фиксированные размеры кнопок навигации для мобильных */
+    .nav-button {
+        width: 48px; /* Вернуть фиксированную ширину для мобильных, если нужно */
+        margin: 0 5px; /* Отступ между кнопками */
+    }
+
+    /* Выравнивание кнопок навигации */
+    #navigation {
+        flex-direction: row; /* Убедитесь, что кнопки в ряд */
+        justify-content: space-between; /* Равномерное пространство между кнопками */
+        align-items: center; /* Выравнивание по высоте */
+    }
 }
+
 .correct {
     background-color: green;
     color: white;
