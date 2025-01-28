@@ -175,6 +175,23 @@ input[type="text"] {
     padding: 5px;
 }
 
+/* Отключаем эффект наведения для уже выбранных кнопок */
+button.correct,
+button.incorrect {
+    pointer-events: none; /* Отключаем интерактивность */
+}
+
+/* Уменьшаем непрозрачность для блеклых кнопок */
+button.faded {
+    opacity: 0.5; /* Уменьшаем непрозрачность для блеклости */
+}
+
+/* Подсвечиваем выбранный вариант */
+.selected {
+    border: 3px solid black; /* Черная рамка */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Легкая тень */
+}
+
 /* Responsive styles */
 @media (max-width: 600px) {
     .container {
@@ -228,11 +245,11 @@ input[type="text"] {
 }
 
 .correct {
-    background-color: green;
-    color: white;
+    background-color: green; /* Цвет для правильного ответа */
+    color: white; /* Цвет текста */
 }
 
 .incorrect {
-    background-color: red;
-    color: white;
+    background-color: red; /* Цвет для неправильного ответа */
+    color: white; /* Цвет текста */
 }
