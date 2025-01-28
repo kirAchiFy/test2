@@ -96,12 +96,22 @@ function initModal() {
 
 function handleAnswer(selectedButton, correctAnswerId) {
     const buttons = document.querySelectorAll(".option-button");
-    
-    // Отключаем все кнопки после выбора
+
+    // Убираем выделение у всех кнопок и отключаем их после выбора
     buttons.forEach((button) => {
         button.disabled = true; 
-        button.classList.add("faded"); // Применяем эффект поблекания ко всем кнопкам
+        button.classList.add("faded");
+        
+        // Проверяем правильность и добавляем классы
+        if (button.dataset.correct === "true") {
+            button.classList.add("correct");
+        } else {
+            button.classList.add("incorrect");
+        }
     });
+
+    // Добавляем рамку к выбранной кнопке
+    selectedButton.classList.add("selected");
 
     // Подсвечиваем выбранный ответ
     if (selectedButton.dataset.correct === "true") {
