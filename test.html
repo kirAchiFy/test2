@@ -5,12 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Подключаем Font Awesome -->
     <title>Тест</title>
+    <style>
+        /* Добавьте стили для кнопки "Домой" */
+        #home-button {
+            position: absolute; /* Позволяет расположить кнопку в верхнем правом углу */
+            top: 10px; /* Отступ от верхнего края */
+            right: 10px; /* Отступ от правого края */
+            width: 40px; /* Ширина кнопки */
+            height: 40px; /* Высота кнопки */
+            background-color: #007BFF; /* Цвет фона кнопки */
+            color: white; /* Цвет текста */
+            border: none; /* Убираем границу */
+            border-radius: 5px; /* Скругляем углы */
+            cursor: pointer; /* Изменяем курсор при наведении */
+            font-size: 20px; /* Размер иконки */
+            display: flex; /* Используем flex для центрирования иконки */
+            align-items: center; /* Центрируем по вертикали */
+            justify-content: center; /* Центрируем по горизонтали */
+        }
+        #home-button:hover {
+            background-color: #0056b3; /* Цвет при наведении */
+        }
+        /* Убираем стандартные стили у кнопки */
+        #home-button:focus {
+            outline: none; /* Убираем обводку при фокусировке */
+        }
+        header {
+            position: relative; /* Устанавливаем относительное позиционирование для заголовка */
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1 id="test-title">Тест</h1>
+        <h1 id="test-title" style="margin: 0;">Тест</h1> <!-- Убираем отступы у заголовка -->
         <button id="toggle-sidebar" class="hamburger">&equiv;</button>
+        <button id="home-button"><i class="fas fa-home"></i></button> <!-- Кнопка "Домой" с иконкой -->
     </header>
     <main>
         <div class="container">
@@ -48,6 +79,13 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Добавляем обработчик события для кнопки "Домой"
+        document.getElementById('home-button').addEventListener('click', function() {
+            window.location.href = 'index.html'; // Перенаправление на страницу tests.html
+        });
+    </script>
 
     <script src="test.js"></script>
 </body>
