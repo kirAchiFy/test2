@@ -1,15 +1,18 @@
+/* Сброс стилизования для всех элементов */
 * {
     box-sizing: border-box;
 }
 
+/* Основные стили тела страницы */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: "Arial", sans-serif;
     margin: 0;
     padding: 0;
     background: linear-gradient(to right, #00c6ff, #0072ff);
     color: #fff;
 }
 
+/* Стили заголовков в Header */
 header {
     text-align: center;
     margin-bottom: 20px;
@@ -26,8 +29,8 @@ h2 {
 
 /* Контейнер для теста */
 .container {
-    display: flex; /* Устанавливаем flex-контейнер для размещения вопросов и основной области */
-    height: calc(100vh - 100px); /* Задаем высоту, чтобы занять весь экран минус заголовок и отступы */
+    display: flex; /* Flex-контейнер для размещения вопросов и основной области */
+    height: calc(100vh - 100px); /* Занимает весь экран минус заголовок и отступы */
 }
 
 /* Список вопросов */
@@ -35,70 +38,118 @@ h2 {
     background: rgba(255, 255, 255, 0.1);
     padding: 20px;
     border-radius: 8px;
-    height: auto; /* Убедитесь, что высота подстраивается под контент */
-    overflow-y: auto; /* Добавляем прокрутку при переполнении */
-    display: flex; /* Устанавливаем flex для вертикального расположения */
+    height: auto; /* Высота подстраивается под контент */
+    overflow-y: auto; /* Прокрутка при переполнении */
+    display: flex; /* Flex для вертикального расположения */
     flex-direction: column; /* Вертикальное расположение элементов */
 }
 
+/* Стили для скрытия элементов */
 .hidden {
     display: none; /* Скрываем элемент */
 }
 
 .hamburger {
-    font-size: 24px; /* Размер иконки */
-    background: none; /* Убираем фон */
-    border: none; /* Убираем границы */
-    cursor: pointer; /* Указатель при наведении */
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    transition: transform 0.3s ease; /* Плавный переход для кнопки */
 }
 
+.hamburger div {
+    width: 100%;
+    height: 4px; /* Высота полосок */
+    background: #333; /* Цвет полосок */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Плавный переход для полосок */
+}
+
+/* Анимация при наведении */
+.hamburger:hover div:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px); /* Вращение первой полоски */
+}
+
+.hamburger:hover div:nth-child(2) {
+    transform: rotate(45deg) translate(5px, 5px); /* Вращение третьей полоски */
+}
+
+.hamburger:hover div:nth-child(3) {
+    transform: rotate(45deg) translate(5px, 5px); /* Вращение третьей полоски */
+}
+
+/* Анимация при нажатии */
+.hamburger:active div:nth-child(1) {
+    transform: rotate(135deg) translate(5px, 5px); /* Вращение первой полоски */
+}
+
+.hamburger:active div:nth-child(2) {
+    transform: rotate(135deg) translate(5px, 5px); /* Вращение третьей полоски */
+}
+
+.hamburger:active div:nth-child(3) {
+    transform: rotate(135deg) translate(5px, 5px); /* Вращение третьей полоски */
+}
+
+/* Контейнер для тестового элемента */
 .test-item-container {
-    padding: 15px; /* Увеличиваем внутренние отступы для более выразительного дизайна */
+    padding: 15px; /* Внутренние отступы */
     margin: 5px 0; /* Небольшие отступы между вопросами */
     background: rgba(255, 255, 255, 0.1);
     border-radius: 5px;
     text-align: center; /* Центрируем текст внутри вопроса */
-    cursor: pointer; /* Устанавливаем курсор как указатель для кликабельных вопросов */
-    transition: background-color 0.3s; /* Добавляем переход для фона */
+    cursor: pointer; /* Курсор как указатель */
+    transition: background-color 0.3s; /* Плавный переход фона */
     width: 100%; /* Занимает 100% ширины контейнера */
 }
 
-
+/* Основная область для вопросов */
 .question-area {
-    flex-grow: 1; /* Заставляем основную область занимать оставшееся пространство */
-    padding: 20px; /* Отступы внутри основной области */
-    background: rgba(255, 255, 255, 0.1); /* Добавление фона для основной области */
-    border-radius: 8px; /* Скругляем углы основной области */
+    flex-grow: 1; /* Основная область занимает оставшееся пространство */
+    padding: 20px; /* Отступы внутри области */
+    background: rgba(255, 255, 255, 0.1); /* Фон для основной области */
+    border-radius: 8px; /* Скругляем углы */
 }
 
-/* Кнопки */
+/* Общие стили для кнопок */
 button {
     padding: 10px 15px;
     font-size: 16px;
     border: none;
     border-radius: 5px;
-    background-color: #007BFF;
+    background-color: #007bff; /* Основной цвет кнопок */
     color: white;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: background-color 0.3s, transform 0.3s; /* Плавные переходы */
 }
 
+button:hover {
+    background-color: #0056b3; /* Цвет при наведении */
+    transform: translateY(-2px); /* Эффект поднятия */
+}
+
+/* Стиль для кнопки добавления теста */
 #add-test-button {
-    background-color: #28a745;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
+    background-color: #28a745; /* Цвет кнопки добавления */
+    position: fixed; /* Фиксированное положение */
+    bottom: 20px; /* Отступ от нижнего края */
+    right: 20px; /* Отступ от правого края */
     width: 60px;
     height: 60px;
-    border-radius: 30px;
-    font-size: 24px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 30px; /* Кнопка круглая */
+    font-size: 24px; /* Размер иконки */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Тень */
 }
 
 #add-test-button:hover {
-    background-color: #218838;
+    background-color: #218838; /* Цвет при наведении */
 }
 
+/* Модальные окна */
 .modal {
     display: flex;
     justify-content: center;
@@ -109,21 +160,21 @@ button {
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto; /* Позволяет прокручивать окно, если содержимое превышает размеры */
-    background-color: rgba(0, 0, 0, 0.7); /* Тёмный фон для затемнения */
+    overflow: auto; /* Прокрутка при переполнении */
+    background-color: rgba(0, 0, 0, 0.7); /* Затемнение фона */
 }
 
 .modal-content {
     margin: auto;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 10px; /* Скругление углов */
     background-color: #222; /* Темный фон модального окна */
-    color: #fff; /* Белый цвет текста */
+    color: #fff; /* Цвет текста */
     width: 80%; /* Ширина 80% от экрана */
-    max-width: 500px; /* Максимальная ширина 500px */
-    max-height: 80vh; /* Максимальная высота 80% от видимой области окна */
-    overflow-y: auto; /* Позволяет вертикальную прокрутку при превышении высоты */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Добавление небольшого тени */
+    max-width: 500px; /* Максимальная ширина */
+    max-height: 80vh; /* Максимальная высота */
+    overflow-y: auto; /* Вертикальная прокрутка */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Тень */
 }
 
 /* Стиль для заголовка модального окна */
@@ -134,24 +185,26 @@ button {
 /* Кнопки внутри модального окна */
 .modal-content .button {
     background-color: #444; /* Цвет кнопок */
-    color: #fff; /* Цвет текста кнопок */
-    border: none; /* Убираем рамку */
-    padding: 10px 15px; /* Отступы внутри кнопок */
-    cursor: pointer; /* Изменение курсора при наведении */
-    border-radius: 5px; /* Закругление углов кнопок */
+    color: #fff; /* Цвет текста */
+    border: none; /* Убираем рамки */
+    padding: 10px 15px; /* Отступы */
+    cursor: pointer; /* Изменение курсора */
+    border-radius: 5px; /* Скругление углов */
 }
 
 .modal-content .button:hover {
-    background-color: #555; /* Цвет кнопок при наведении */
+    background-color: #555; /* Цвет при наведении */
 }
+
+/* Стили для текстовых полей */
 input[type="text"] {
     width: calc(100% - 24px);
     padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fff;
-    color: #333;
+    margin: 10px 0; /* Отступы для текстовых полей */
+    border: 1px solid #ddd; /* Граница */
+    border-radius: 5px; /* Скругление углов */
+    background-color: #fff; /* Цвет фона */
+    color: #333; /* Цвет текста */
 }
 
 /* Стили для кнопок навигации в тесте */
@@ -160,22 +213,22 @@ input[type="text"] {
     font-size: 16px;
     border: none;
     border-radius: 5px;
-    background-color: #007BFF;
+    background-color: #007bff;
     color: white;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: background-color 0.3s, transform 0.3s; /* Плавные переходы */
 }
 
 .nav-button:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
+    background-color: #0056b3; /* Цвет при наведении */
+    transform: translateY(-2px); /* Эффект поднятия */
 }
 
 /* Обертка для навигационных кнопок */
 #navigation {
-    display: flex;
-    justify-content: space-between; /* Разделяет кнопки по краям */
-    align-items: center; /* Выравнивание по высоте */
+    display: flex; /* Размещаем кнопки в ряд */
+    justify-content: space-between; /* Разделяем кнопки по краям */
+    align-items: center; /* Центруем по высоте */
     margin-top: 20px; /* Отступ сверху */
 }
 
@@ -183,24 +236,24 @@ input[type="text"] {
 .answer-options {
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
-    padding: 10px;
-    margin-bottom: 20px; /* Отступ снизу для навигационных кнопок */
+    padding: 10px; /* Отступы */
+    margin-bottom: 20px; /* Отступ снизу */
 }
 
 /* Стили для отдельных вариантов ответов */
 .answer-option {
-    padding: 5px;
+    padding: 5px; /* Внутренние отступы */
 }
 
 /* Отключаем эффект наведения для уже выбранных кнопок */
 button.correct,
 button.incorrect {
-    pointer-events: none; /* Отключаем интерактивность */
+    pointer-events: none; /* Отключает интерактивность */
 }
 
 /* Уменьшаем непрозрачность для блеклых кнопок */
 button.faded {
-    opacity: 0.5; /* Уменьшаем непрозрачность для блеклости */
+    opacity: 0.5; /* Блеклость */
 }
 
 /* Подсвечиваем выбранный вариант */
@@ -212,31 +265,25 @@ button.faded {
 /* Responsive styles */
 @media (max-width: 600px) {
     .container {
-        flex-direction: column; /* Устанавливаем вертикальное расположение для мобильных устройств */
+        flex-direction: column; /* Вертикальное расположение для мобильных устройств */
     }
 
     body {
-        padding: 10px;
+        padding: 10px; /* Отступы */
     }
 
     button {
-        width: 100%;
-        margin: 5px 0;
+        width: 100%; /* Кнопки занимают 100% ширины */
+        margin: 5px 0; /* Небольшие отступы между кнопками */
     }
 
     #add-test-button {
-        position: relative;
-        bottom: auto;
-        right: auto;
-        width: 100%;
-        height: 50px;
-        font-size: 28px;
-    }
-
-    /* Изменяем стили для кнопок навигации в мобильной версии */
-    .nav-button {
-        width: 100%; /* Занимает 100% ширины в мобильной версии */
-        margin: 5px 0; /* Небольшие отступы между кнопками */
+        position: relative; /* Устанавливаем относительное положение */
+        bottom: auto; /* Автоматическое выравнивание по вертикали */
+        right: auto; /* Автоматическое выравнивание по горизонтали */
+        width: 100%; /* Занимает 100% ширины */
+        height: 50px; /* Высота */
+        font-size: 28px; /* Размер иконки */
     }
 
     /* Обертка для навигационных кнопок */
@@ -247,9 +294,9 @@ button.faded {
         right: 0; /* Сдвигаем вправо */
         padding: 10px; /* Добавляем отступы для удобства */
         background-color: rgba(34, 34, 34, 0.8); /* Полупрозрачный фон для навигации */
-        display: flex;
-        flex-direction: column; /* Устанавливаем вертикальное расположение для кнопок навигации */
-        align-items: stretch; /* Растягиваем кнопки на всю ширину */
+        display: flex; /* Flex для размещения кнопок */
+        flex-direction: column; /* Вертикальное расположение кнопок */
+        align-items: stretch; /* Заставляем кнопки растягиваться на всю ширину */
     }
 
     #sidebar {
@@ -257,29 +304,128 @@ button.faded {
         width: 200px; /* Ширина сайдбара */
         background-color: rgba(255, 255, 255, 0.1); /* Цвет фона */
         height: 100%; /* Высота 100% */
-        overflow-y: auto; /* Прокрутка по вертикали */
+        overflow-y: auto; /* Прокрутка */
     }
 }
 
+/* Стили для правильных и неправильных ответов */
 .correct {
-    background-color: green;
-    color: white;
+    background-color: green; /* Зеленая подсветка для правильных ответов */
+    color: white; /* Цвет текста */
 }
 
 .incorrect {
-    background-color: red;
-    color: white;
+    background-color: red; /* Красная подсветка для неправильных ответов */
+    color: white; /* Цвет текста */
 }
 
 .selected {
-    border: 2px solid blue;
+    border: 2px solid blue; /* Синяя рамка для выбранных вариантов */
 }
 
 .faded {
-    opacity: 0.5;
+    opacity: 0.5; /* Блеклость */
 }
 
+/* Кнопки с классом option-button */
 .option-button {
-    margin: 5px;
-    padding: 10px;
+    margin: 5px; /* Отступы */
+    padding: 10px; /* Внутренние отступы */
+}
+
+/* Стили для кнопки "Домой" */
+#home-button {
+    position: absolute; /* Позволяет расположить кнопку в верхнем правом углу */
+    top: 10px; /* Отступ от верхнего края */
+    right: 60px; /* Отступ от правого края */
+    width: 40px; /* Ширина кнопки */
+    height: 40px; /* Высота кнопки */
+    background-color: #007bff; /* Цвет фона кнопки */
+    color: white; /* Цвет текста кнопки */
+    border: none; /* Убираем границу */
+    border-radius: 5px; /* Скругляем углы */
+    cursor: pointer; /* Изменяем курсор при наведении */
+    font-size: 20px; /* Размер иконки */
+    display: flex; /* Используем flex для центрирования иконки */
+    align-items: center; /* Центрируем по вертикали */
+    justify-content: center; /* Центрируем по горизонтали */
+    z-index: 10; /* Убедимся, что кнопка выше других элементов */
+}
+
+#home-button:hover {
+    background-color: #0056b3; /* Цвет при наведении */
+}
+
+/* Стили для кнопки гамбургера */
+#toggle-sidebar {
+    position: absolute; /* Позволяет расположить кнопку в верхнем правом углу */
+    top: 10px; /* Отступ от верхнего края */
+    right: 0; /* Отступ от правого края */
+    width: 40px; /* Ширина кнопки */
+    height: 40px; /* Высота кнопки */
+    background-color: transparent; /* Прозрачный фон */
+    border: none; /* Убираем границу */
+    cursor: pointer; /* Изменяем курсор при наведении */
+    display: flex; /* Используем flex для центрирования */
+    flex-direction: column; /* Располагаем полоски вертикально */
+    justify-content: space-around; /* Распределяем полоски по высоте */
+    padding: 0; /* Убираем внутренние отступы */
+    z-index: 10; /* Убедимся, что кнопка выше других элементов */
+}
+
+/* Полоски гамбургера */
+#toggle-sidebar div {
+    width: 100%; /* Ширина полосок */
+    height: 5px; /* Высота полосок */
+    background-color: #ffffff; /* Цвет полосок */
+    border-radius: 2px; /* Скругляем углы полосок */
+}
+
+/* Изменение цвета полосок при наведении */
+#toggle-sidebar:hover div {
+    background-color: #0056b3; /* Цвет при наведении */
+}
+
+/* Стили для кнопок меню */
+.menu-button {
+    display: block; 
+    margin: 10px 0; /* Отступы между кнопками */
+    padding: 10px; /* Внутренние отступы */
+    background-color: transparent; /* Прозрачный фон */
+    color: white; /* Цвет текста */
+    border: none; /* Убираем границу */
+    text-align: left; /* Выравнивание текста по левому краю */
+    font-size: 18px; /* Размер шрифта */
+    cursor: pointer; /* Изменяем курсор при наведении */
+    width: 100%; /* Занимаем 100% ширины */
+}
+
+/* Настройки интерактивных элементов */
+.menu-button:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Цвет при наведении */
+}
+
+/* Стили для активного состояния меню */
+.active {
+    right: 0; /* Показываем меню */
+}
+
+/* Стили сайдбара */
+#sidebar {
+    position: absolute; /* Убедитесь, что позиция абсолютная */
+    width: 200px; /* Ширина сайдбара */
+    background-color: #007bff; /* Цвет фона сайдбара */
+    border: 1px solid #ccc; /* Граница сайдбара */
+    z-index: 1000; /* Убедитесь, что сайдбар выше других элементов */
+    display: none; /* Скрываем по умолчанию */
+}
+
+#sidebar.hidden {
+    display: none; /* Скрываем сайдбар, если он имеет класс hidden */
+}
+
+.header-buttons {
+    display: flex;
+    align-items: center; /* Центрирует кнопки по вертикали */
+    gap: 10px; /* Отступ между кнопками */
 }
